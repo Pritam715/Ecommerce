@@ -1,0 +1,38 @@
+.aa-prod-view-size label input[type="radio"] {
+    display: none;
+}
+
+.aa-prod-view-size label span {
+    cursor: pointer;
+    opacity: 0.6;
+    position: relative;
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 50px;
+    margin-left: 5px;
+    padding: 10px 15px 10px 15px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    user-select: none;
+}
+.aa-prod-view-size label input[type="radio"]:checked ~ span {
+    background-color: red;
+    color: black;
+    text-shadow: none;
+}
+
+.aa-color-tag label input[type="radio"] {
+    display: none;
+}
+
+.aa-color-tag label span {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    padding: 10px 15px 10px 15px;
+    border-radius: 50px;
+    user-select: none;
+}
+
+.aa-color-tag label input[type="radio"]:checked ~ span {
+    border: 2px solid #ff6666;
+}
