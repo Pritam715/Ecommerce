@@ -15,6 +15,9 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductDetailsController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\AdvertisementController;
+use App\Http\Controllers\OfferController;
 
 
 /*
@@ -32,17 +35,20 @@ Auth::routes();
 Route::post('ckeditor', [CKEditorController::class,'upload'])->name('upload');
 
 
-Route::get('/',[FrontendController::class,'index'])->name('outtdoor');
+Route::get('/',[FrontendController::class,'index'])->name('outdoor');
 Route::match(['get','post'],'dp/{slug}',[FrontendController::class,'details'])->name('product-details');
 Route::get('size',[FrontendController::class,'findsize']);
 
-//Wishlist
-Route::post('wishlist',[FrontendController::class,'wishlist'])->name('wishlist');
-
-
-//Cart
+Route::get('all-products',[ShopController::class,'allproducts'])->name('all-products');
+// Route::get('get_causes_against_category/{id}',[ShopController::class,'get_causes_against_category']);
+Route::get('get_causes_against_category',[ShopController::class,'get_causes_against_category']);
+Route::get('/findProducts',[ShopController::class,'findProducts']);
+// //Cart
 Route::get('view-cart',[FrontendController::class,'allcart'])->name('view.cart');
 Route::post('cart',[FrontendController::class,'cart'])->name('cart');
+
+//Wishlist
+Route::post('wishlist',[FrontendController::class,'wishlist'])->name('wishlist');
 
 
 
@@ -66,7 +72,7 @@ Route::post('cart',[FrontendController::class,'cart'])->name('cart');
 
 
 //Admin Route///
-Route::group(['middleware'=>['auth']],function()
+Route::group(['middleware'=> ['auth']],function()
 {
 
   Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
@@ -74,6 +80,7 @@ Route::group(['middleware'=>['auth']],function()
 ///UserController///
 Route::resource('user', UserController::class);
 Route::resource('roles', RoleController::class);
+Route::get('user/delete/{id}',[RoleController::class,'delete'])->name('user.delete');
 Route::get('roles/delete/{id}',[RoleController::class,'delete'])->name('roles.delete');
 
 
@@ -140,7 +147,24 @@ Route::get('deleteattribute/{id}',[ProductController::class,'deleteattribute']);
 Route::match(['get','post'],'editattribute/{id}',[ProductController::class,'editattribute']);
 
 
+//Advertisment
+Route::get('advertisment',[AdvertisementController::class,'index'])->name('advertisement.index');
+Route::post('advertisment',[AdvertisementController::class,'store'])->name('advertisement.store');
+Route::post('update-advertisement-status',[AdvertisementController::class,'updatestatus']);
+Route::get('delete/images/{id}',[AdvertisementController::class,'delete']);
+
+
+//Offer
+Route::get('offer',[OfferController::class,'index'])->name('offer.index');
+Route::post('offer-store',[OfferController::class,'store'])->name('offer.store');
+Route::put('offer/update/{id}',[OfferController::class,'update'])->name('offer.update');
+Route::get('delete/images/{id}',[OfferController::class,'delete'])->name('offer.delete');
+Route::post('update-offer-status',[OfferController::class,'updatestatus']);
+
 });
+
+
+
 
 
 

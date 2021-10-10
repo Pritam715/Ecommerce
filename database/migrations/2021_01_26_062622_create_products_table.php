@@ -23,6 +23,8 @@ class CreateProductsTable extends Migration
             $table->string('product_code')->nullable();
             $table->string('product_brand');
             $table->string('product_image');
+            $table->string('offer_price');
+            $table->string('offer_id');
             $table->longtext('short_description');
             $table->longtext('long_description');
             $table->string('product_price');

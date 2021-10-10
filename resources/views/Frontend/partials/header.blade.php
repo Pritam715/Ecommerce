@@ -4,11 +4,11 @@
 
 
   <!-- wpf loader Two -->
-  <div id="wpf-loader-two">          
+  {{-- <div id="wpf-loader-two">          
     <div class="wpf-loader-two-inner">
       <span>Loading</span>
     </div>
-  </div> 
+  </div>  --}}
   <!-- / wpf loader Two -->       
 <!-- SCROLL TOP BUTTON -->
   <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
@@ -18,7 +18,7 @@
 <!-- Start header section -->
 <header id="aa-header">
   <!-- start header top  -->
-  <div class="aa-header-top">
+  {{-- <div class="aa-header-top">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
@@ -51,12 +51,12 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
   <!-- / header top  -->
 
   <!-- start header bottom  -->
   <div class="aa-header-bottom">
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
         <div class="col-md-12">
           <div class="aa-header-bottom-area">
@@ -70,44 +70,65 @@
               <!-- img based logo -->
               <!-- <a href="index.html"><img src="img/logo.jpg" alt="logo img"></a> -->
             </div>
-            <!-- / logo  -->
+
              <!-- cart box -->
             <div class="aa-cartbox">
-              <a class="aa-cart-link" href="#">
+              <a class="aa-cart-link" href="{{route('view.cart')}}">
                 <span class="fa fa-shopping-basket"></span>
-                <span class="aa-cart-title">SHOPPING CART</span>
+                <span class="aa-cart-title">CART</span>
                 <span class="aa-cart-notify">2</span>
+              </a>
+        
+            </div>
+
+
+            <!-- / login  -->
+            @if(Session::has('frontSession'))
+            <div class="aa-cartbox">
+              <a class="aa-cart-link" href="">
+                <span class="fa fa-user"></span>
+                <span class="aa-cart-title">My Account</span>
               </a>
               <div class="aa-cartbox-summary">
                 <ul>
                   <li>
-                    <a class="aa-cartbox-img" href="#"><img src="img/woman-small-2.jpg" alt="img"></a>
+                    <a class="aa-cartbox-img" href="#"><i class="fa fa-user"></i></a>
                     <div class="aa-cartbox-info">
-                      <h4><a href="#">Product Name</a></h4>
-                      <p>1 x $250</p>
+                      <h4><a href="#">My Profile</a></h4>
+     
                     </div>
-                    <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
                   </li>
                   <li>
-                    <a class="aa-cartbox-img" href="#"><img src="img/woman-small-1.jpg" alt="img"></a>
+                    <a class="aa-cartbox-img" href="#"><i class="fa fa-heart"></i></a>
                     <div class="aa-cartbox-info">
-                      <h4><a href="#">Product Name</a></h4>
-                      <p>1 x $250</p>
+                      <h4><a href="#">My Wishlist</a></h4>
+                 
                     </div>
-                    <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                  </li>                    
-                  <li>
-                    <span class="aa-cartbox-total-title">
-                      Total
-                    </span>
-                    <span class="aa-cartbox-total-price">
-                      $500
-                    </span>
                   </li>
+                  <li>
+                    <a class="aa-cartbox-img" href="#"><i class="fa fa-key"></i></a>
+                    <div class="aa-cartbox-info">
+                      <h4><a href="#">Change Password</a></h4>
+     
+                    </div>
+                  </li>
+                                   
+                  
                 </ul>
-                <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.html">Checkout</a>
+                <a class="aa-cartbox-checkout aa-primary-btn" href="{{route('customer.logout')}}">Logout</a>
               </div>
             </div>
+            @else
+               
+                 <div class="aa-cartbox">
+                   <a class="aa-cart-link" href="{{route('customer.login')}}">
+                     <span class="fa fa-sign-in"></span>
+                     <span class="aa-cart-title">Sign In</span>
+                   </a>
+                 </div>
+            @endif
+       
+            
             <!-- / cart box -->
             <!-- search box -->
             <div class="aa-search-box">
@@ -141,7 +162,7 @@
           <div class="navbar-collapse collapse">
             <!-- Left nav -->
             <ul class="nav navbar-nav">
-              <li><a href="index.html">Home</a></li>
+              <li><a href="{{route('outdoor')}}">Home</a></li>
               @foreach($categories as $c)
               <li><a href="#">{{ucfirst($c->category)}}<span class="caret"></span></a>
                   <ul class="dropdown-menu category"> 
@@ -163,7 +184,7 @@
             
               </li>
               @endforeach
-  
+              <li><a href="{{route('all-products')}}">Shop</a></li>
            
             </ul>
           </div><!--/.nav-collapse -->

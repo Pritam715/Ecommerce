@@ -60,6 +60,10 @@
                 <input type="text" class="form-control" name="product_price" placeholder="Product Price" value="{{$product->product_price}}" required>
               </div>
               <div class="form-group">
+                <label>Offer Price:</label>
+                <input type="text" class="form-control" name="offer_price" value="{{$product->offer_price}}" placeholder="Offer Price">
+              </div>
+              <div class="form-group">
                 <label>Short Description:</label>
                 <textarea class="form-control" rows="5" name="short_description"  required>{{$product->short_description}}</textarea> 
               </div>
@@ -94,7 +98,16 @@
                     <input type="file" accept="image/*" name="image" id="file" value="{{$product->product_image}}" onchange="loadFile(event)" >
                   </div>
                   <br>
-                
+                  <div class="form-group">
+                    <label>Offer Category:</label>
+                    <select class="form-control " name="offer_id">
+                      <option selected="true" disabled>--Select--</option>
+                      @foreach($offer as $o)
+                      <option value="{{$o->slug}}" {{$product->offer_id==$o->slug ? 'selected' : ''}} >{{$o->title}}</option>
+                      @endforeach
+                   
+                    </select>
+                  </div>
                   <div class="form-group">
                     @if($product->product_image)
                     <p><img id="output" src="{{asset('Images/Product/'.$product->product_image) }}" height="100px" width="100px"></p>

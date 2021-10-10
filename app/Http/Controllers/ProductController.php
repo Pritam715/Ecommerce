@@ -7,6 +7,7 @@ use App\Models\SubCategory;
 use App\Models\category;
 use App\Models\Subsubcategory;
 use App\Models\Brand;
+use App\Models\Offer;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductColor;
@@ -23,15 +24,16 @@ class ProductController extends Controller
 
      public function add()
      {
+         $offer=Offer::all();
          $category=category::all();
          $brand=Brand::all();
-         return view('Backend.Product.addproduct',compact('category','brand'));
+         return view('Backend.Product.addproduct',compact('category','brand','offer'));
      }
 
      public function store(Request $request)
      {
 
-      //  dd($request->all());
+    //    dd($request->all());
         $data=$request->all();
 
         $product= new Product;
@@ -39,6 +41,9 @@ class ProductController extends Controller
         $product->subcategory_id=$data['subcategory_id'];
         $product->sub_subcategory_id=$data['subsubcategory_id'];
         $product->product_name=$data['product_name'];
+        // dd($data['offer_id']);
+        $product->offer_id=$data['offer_id'];
+        $product->offer_price=$data['offer_price'];
         $product->slug = str_slug($data['product_name'],"-");
         $product->product_code=$data['product_code'];
         $product->product_brand=$data['product_brand'];
@@ -67,10 +72,11 @@ class ProductController extends Controller
 
      public function edit($id)
      {
+        $offer=Offer::all();
          $product=Product::find($id);
          $category=category::all();
          $brand=Brand::all();
-         return view('Backend.Product.editproduct',compact('product','category','brand'));
+         return view('Backend.Product.editproduct',compact('product','category','brand','offer'));
      }
 
 
@@ -95,7 +101,8 @@ class ProductController extends Controller
             $product->sub_subcategory_id=$data['subsubcategory_id'];
         }
 
- 
+        $product->offer_id=$data['offer_id'];
+        $product->offer_price=$data['offer_price'];
         $product->product_name=$data['product_name'];
         $product->slug = str_slug($data['product_name'],"-");
         $product->product_code=$data['product_code'];
@@ -175,7 +182,7 @@ class ProductController extends Controller
                    $extension=$file->getClientOriginalExtension();
                    $filename=rand(111,99999).'.'.$extension;
                 //   $img_path='public/Images/product/'.$filename;
-                   Image::make($file)->resize(500,500)->save(public_path('Images/product/').$filename);
+                   Image::make($file)->resize(540,720)->save(public_path('Images/product/').$filename);
                    $image->image=$filename;
                    $image->product_id=$data['product_id'];
                    $image->save();
@@ -239,6 +246,7 @@ class ProductController extends Controller
 
      public function addattributes(Request $request,$id)
      {
+ 
         if($request->isMethod('post'))
         {
             $data=$request->all();
@@ -253,11 +261,11 @@ class ProductController extends Controller
                     }
 
                     //Prevent duplicate Size Record
-                    $attrCountSizes=ProductAttributes::where(['product_id'=>$id,'size'=>$data['size'][$key]])->count();
-                    if($attrCountSizes>0)
-                    {
-                     return redirect('add-attributes/'.$id)->with('flash_message_error',''.$data['size'][$key].'Size is already exist Please select another size');
-                    }
+                    // $attrCountSizes=ProductAttributes::where(['product_id'=>$id,'size'=>$data['size'][$key]])->count();
+                    // if($attrCountSizes>0)
+                    // {
+                    //  return redirect('add-attributes/'.$id)->with('flash_message_error',''.$data['size'][$key].'Size is already exist Please select another size');
+                    // }
 
                     $attribute=new ProductAttributes;
                     $attribute->product_id=$id;
@@ -287,6 +295,8 @@ class ProductController extends Controller
      }
 
      public function editattribute(Request $request,$id=null){
+
+        dd($id);
       if($request->isMethod('post')){
           $data = $request->all();
       

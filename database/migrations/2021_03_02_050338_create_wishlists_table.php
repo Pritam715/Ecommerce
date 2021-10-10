@@ -18,7 +18,7 @@ class CreateWishlistsTable extends Migration
             $table->integer('product_id');
             $table->string('product_name');
             $table->string('product_code');
-            $table->string('sku');
+            $table->string('sku')->nullable();
             $table->string('size')->nullable();
             $table->integer('price')->nullable();
             $table->string('color')->nullable();

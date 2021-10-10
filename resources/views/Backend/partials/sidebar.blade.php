@@ -62,6 +62,26 @@
             </span>
           </a>
         </li>
+        <li class="treeview">
+          <a href="{{route('advertisement.index')}}">
+            <i class="fa fa-product-hunt"></i>
+            <span>Advertisement</span>
+            <span class="pull-right-container">
+            </span>
+          </a>
+        </li>
+        @role('Seller')
+        <li class="header">Offer Management</li>
+        <li class="treeview">
+          <a href="{{route('offer.index')}}">
+            <i class="fa fa-files-o"></i>
+            <span>Offer</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">4</span>
+            </span>
+          </a>
+        </li>
+        @endrole
         <li class="header">Role Management</li>
         <li class="treeview">
           <a href="{{route('roles.index')}}">

@@ -60,10 +60,14 @@
                 <input type="text" class="form-control" name="product_price" placeholder="Product Price" required>
               </div>
               <div class="form-group">
+                <label>Offer Price:</label>
+                <input type="text" class="form-control" name="offer_price" placeholder="Offer Price">
+              </div>
+              <div class="form-group">
                 <label>Short Description:</label>
                 <textarea class="form-control" rows="5" name="short_description" required></textarea> 
               </div>
-              
+           
 
               
             </div>
@@ -88,6 +92,16 @@
                   <div class="form-group">
                     <label>Product Code:</label>
                     <input type="text" class="form-control" name="product_code" placeholder="Product Code" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Offer Category:</label>
+                    <select class="form-control" name="offer_id">
+                      <option selected="true" disabled>--Select--</option>
+                      @foreach($offer as $o)
+                      <option value="{{$o->slug}}" >{{$o->title}}</option>
+                      @endforeach
+                   
+                    </select>
                   </div>
                   <div class="form-group">
                     <label>Product Image:</label>

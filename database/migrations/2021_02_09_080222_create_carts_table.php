@@ -18,13 +18,13 @@ class CreateCartsTable extends Migration
             $table->integer('product_id');
             $table->string('product_name');
             $table->string('product_code');
-            $table->string('sku');
+            $table->string('sku')->nullable();
             $table->string('size');
             $table->integer('price');
             $table->string('color');
             $table->integer('quantity');
-            $table->string('user_email');
-            $table->string('session_id');
+            $table->string('user_email')->nullable();
+            $table->string('session_id')->nullable();
             $table->timestamps();
         });
     }

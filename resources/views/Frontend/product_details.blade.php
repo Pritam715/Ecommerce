@@ -20,32 +20,36 @@
                   <div class="aa-product-view-slider">                                
                     <div id="demo-1" class="simpleLens-gallery-container">
                       <div class="simpleLens-container">
-                        <div class="simpleLens-big-image-container"><a data-lens-image="img/view-slider/large/polo-shirt-1.png" class="simpleLens-lens-image"><img src="img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image"></a></div>
+                        <div class="simpleLens-big-image-container"><a data-lens-image="{{asset('Images/Product/'.$details->product_image)}}" class="simpleLens-lens-image"><img src="{{asset('Images/Product/'.$details->product_image)}}" width="100%" class="simpleLens-big-image"></a></div>
                       </div>
+                     
                       <div class="simpleLens-thumbnails-container">
-                          <a data-big-image="img/view-slider/medium/polo-shirt-1.png" data-lens-image="img/view-slider/large/polo-shirt-1.png" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="img/view-slider/thumbnail/polo-shirt-1.png">
+                        <a data-big-image="{{asset('Images/Product/'.$details->product_image)}}" data-lens-image="{{asset('Images/Product/'.$details->product_image)}}" class="simpleLens-thumbnail-wrapper" href="#">
+                          <img src="{{asset('Images/Product/'.$details->product_image)}}"/>
+                        </a>   
+                        @foreach($images as $img)
+                         
+                          <a data-big-image="{{asset('Images/Product/'.$img->image)}}" data-lens-image="{{asset('Images/Product/'.$img->image)}}" class="simpleLens-thumbnail-wrapper" href="#">
+                            <img src="{{asset('Images/Product/'.$img->image)}}"/>
                           </a>                                    
-                          <a data-big-image="img/view-slider/medium/polo-shirt-3.png" data-lens-image="img/view-slider/large/polo-shirt-3.png" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="img/view-slider/thumbnail/polo-shirt-3.png">
-                          </a>
-                          <a data-big-image="img/view-slider/medium/polo-shirt-4.png" data-lens-image="img/view-slider/large/polo-shirt-4.png" class="simpleLens-thumbnail-wrapper" href="#">
-                            <img src="img/view-slider/thumbnail/polo-shirt-4.png">
-                          </a>
+                          @endforeach
                       </div>
+                
                     </div>
                   </div>
                 </div>
+           
                 <!-- Modal view content -->
                 <div class="col-md-7 col-sm-7 col-xs-12">
-                  <form  method="post" >
-                    @csrf
+                  <form  method="post" enctype="multipart/form-data" >
+                   {{csrf_field()}}
                   <div class="aa-product-view-content">
                     <h3>{{$details->product_name}}</h3>
                     <input type="hidden" class="form-control"  value="{{$details->id}}" name="product_id" id="product_id">
                     <input type="hidden" class="form-control"  value="{{$details->product_name}}" name="product_name" id="product_name">
                     <input type="hidden" class="form-control"  value="{{$details->product_code}}" name="product_code" id="product_code">
                     <input type="hidden" class="form-control"  value="{{$details->product_price}}" name="product_price" id="product_price">
+                    <input type="hidden" class="form-control"  value="{{$details->product_image}}" name="product_image" id="product_image">
                     <input type="hidden" class="form-control"   name="product_price" id="price">
                     <div class="aa-price-block">
                       <span class="aa-product-view-price" id="price">{{$details->product_price}}</span>
@@ -330,7 +334,7 @@
                 </li>                                                                                   
               </ul>
               <!-- quick view modal -->                  
-              <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              {{-- <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">                      
                     <div class="modal-body">
@@ -409,7 +413,7 @@
                     </div>                        
                   </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
-              </div>
+              </div> --}}
               <!-- / quick view modal -->   
             </div>  
           </div>
@@ -454,7 +458,7 @@ $('.color').on('change',function(){
              for(var i=0;i<data.length;i++){
               //$("#price").html("Product Price: "+ data[i].price);
               $("#price").html(data[i].price);
-              op+='<label><input type="radio" id="checkboxid"  value="'+data[i].size+'" name="size"><span>'+data[i].size+'</span></label> <label><input type="hidden" id="latestproduct_price"  value="'+data[i].price+'" name="price"></label>';
+              op+='<label><input type="radio" id="checkboxid"  value="'+data[i].size+'" name="size"><span>'+data[i].size+'</span></label> <label><input type="hidden" id="latestproduct_price"  value="'+data[i].price+'" name="price"></label> <label><input type="hidden" id="sku"  value="'+data[i].sku+'" name="sku"></label>';
          
                 }
                 $('#size').append(op);
@@ -492,11 +496,14 @@ $('.color').on('change',function(){
         var product_name = $('#product_name').val();
         var price=$('#product_price').val();
         var latestprice=$('#latestproduct_price').val();
+        var sku=$('#sku').val();
         var product_code=$('#product_code').val();
         var size = $('input[name="size"]:checked').val();
         var color = $('input[name="color"]:checked').val();
         var quantity=$('#quantity').val();
-      //   console.log(latestprice);
+        var product_image=$('#product_image').val();
+        // console.log(sku);
+        // console.log(image);
       //  console.log(size);
       //  console.log(color);
       //   console.log(quantity);
@@ -515,7 +522,9 @@ $('.color').on('change',function(){
            quantity:quantity,
            product_id:product_id,
            product_name:product_name,
-           product_code:product_code
+           product_code:product_code,
+           product_image:product_image,
+           sku:sku,
            },
           dataType: 'json',
           success:function(data){
@@ -530,7 +539,8 @@ $('.color').on('change',function(){
           }
        });
       }); 
-  });    
+  }); 
+
 </script>
 {{-- 
 Add To Wish List --}}
@@ -557,6 +567,7 @@ Add To Wish List --}}
         var size = $('input[name="size"]:checked').val();
         var color = $('input[name="color"]:checked').val();
         var quantity=$('#quantity').val();
+        var product_image=$('#product_image').val();
       //   console.log(latestprice);
       //  console.log(size);
       //  console.log(color);
@@ -566,7 +577,7 @@ Add To Wish List --}}
              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           type : 'POST',
-          url : '{!!URL::to('cart')!!}',
+          url : '{!!URL::to('wishlist')!!}',
         //  url :  '{{url('size/','')}}/'+color+'',
          data : {
            color:color,
@@ -576,22 +587,29 @@ Add To Wish List --}}
            quantity:quantity,
            product_id:product_id,
            product_name:product_name,
-           product_code:product_code
+           product_code:product_code,
+           product_image:product_image,
            },
           dataType: 'json',
           success:function(data){
             //  console.log(data);
-
-            if (data) {
-                   window.location.href="{!!URL::to('view-cart')!!}";
+              if (data=='login') {
+                   window.location.href="{!!URL::to('login-register')!!}";
                }
+               else{
+                window.location.href="{!!URL::to('view-cart')!!}";
+               }
+          
+           
      
           },error:function(){
-             alert("Error");
+            //  alert("Error");
+         
+     
           }
        });
       }); 
-  });    
-</script>
+  }); 
 
+</script>
 @endpush()

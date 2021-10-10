@@ -35,4 +35,7 @@ class CustomerController extends Controller
         Session::forget('frontSession');
         return redirect('/');
     }
+
+
+
 }

@@ -145,4 +145,12 @@ class UserController extends Controller
     {
         //
     }
+
+        
+    public function delete($id)
+    {
+        DB::table("users")->where('id',$id)->delete();
+        return redirect()->route('user.index')
+                        ->with('success','User deleted successfully');
+    }
 }

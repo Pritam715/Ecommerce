@@ -76,7 +76,7 @@
                           <td>
                             <a href="#" data-toggle="modal" data-target="#editModal"  data-id={{$u->id}}  data-name={{$u->name}} data-email={{$u->email}}   data-address={{$u->address}}  data-mobile={{$u->mobile_no}}   ><i class="fa fa-edit"></i></a>
                               &nbsp &nbsp
-                              <a href="{{route('brand.delete',$u->id)}}"><i class="fa fa-trash" style="color:red"></i></a>
+                              <a href="{{route('user.delete',$u->id)}}"><i class="fa fa-trash" style="color:red"></i></a>
                           </td> 
                        </tr>
 
@@ -147,7 +147,7 @@
                                     <div class="col-md-6">
                                       <div class="form-group">
                                           <label>Phone No:</label>
-                                          <input type="integer" class="form-control" name="number" placeholder="Enter Phone No">
+                                          <input type="number" class="form-control" name="number" placeholder="Enter Phone No">
                                        </div>
                                     </div>
                                     <div class="col-md-6">

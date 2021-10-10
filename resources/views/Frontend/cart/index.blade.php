@@ -17,49 +17,32 @@
                    <table class="table">
                      <thead>
                        <tr>
-                         <th></th>
-                         <th></th>
+                         <th>Image</th>
                          <th>Product</th>
+                         <th>Size</th>
+                         <th>Color</th>
                          <th>Price</th>
                          <th>Quantity</th>
                          <th>Total</th>
+                         <th></th>
                        </tr>
                      </thead>
                      <tbody>
+
+                       @foreach($cart as $allcart)
                        <tr>
+                         <td><a href="#"><img src="{{asset('Images/Product/'.$allcart->product_image)}}" width="100px" alt="img"></a></td>
+                         <td><a class="aa-cart-title" href="#">{{$allcart->product_name}}</a></td>
+                         <td>{{$allcart->size}}</td>
+                         <td ><div style="background-color:{{$allcart->color}};border:1px solid;padding:20px"></div></td>
+                         <td>Rs:{{$allcart->price}}</td>
+                         <td><input class="aa-cart-quantity" type="number" max="10" min="1" value="{{$allcart->quantity}}"></td>
+                         <td>Rs:{{$allcart->price * $allcart->quantity}}</td>
                          <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                         <td><a href="#"><img src="img/man/polo-shirt-1.png" alt="img"></a></td>
-                         <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                         <td>$250</td>
-                         <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                         <td>$250</td>
                        </tr>
-                       <tr>
-                         <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                         <td><a href="#"><img src="img/man/polo-shirt-2.png" alt="img"></a></td>
-                         <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                         <td>$150</td>
-                         <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                         <td>$150</td>
-                       </tr>
-                       <tr>
-                         <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                         <td><a href="#"><img src="img/man/polo-shirt-3.png" alt="img"></a></td>
-                         <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                         <td>$50</td>
-                         <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                         <td>$50</td>
-                       </tr>
-                       <tr>
-                         <td colspan="6" class="aa-cart-view-bottom">
-                           <div class="aa-cart-coupon">
-                             <input class="aa-coupon-code" type="text" placeholder="Coupon">
-                             <input class="aa-cart-view-btn" type="submit" value="Apply Coupon">
-                           </div>
-                           <input class="aa-cart-view-btn" type="submit" value="Update Cart">
-                         </td>
-                       </tr>
-                       </tbody>
+                       @endforeach
+             
+          
                    </table>
                  </div>
               </form>
