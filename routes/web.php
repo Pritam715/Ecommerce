@@ -37,8 +37,7 @@ Route::post('ckeditor', [CKEditorController::class,'upload'])->name('upload');
 
 Route::get('/',[FrontendController::class,'index'])->name('outdoor');
 Route::match(['get','post'],'dp/{slug}',[FrontendController::class,'details'])->name('product-details');
-Route::get('size',[FrontendController::class,'findsize']);
-
+    
 Route::get('all-products',[ShopController::class,'allproducts'])->name('all-products');
 // Route::get('get_causes_against_category/{id}',[ShopController::class,'get_causes_against_category']);
 Route::get('get_causes_against_category',[ShopController::class,'get_causes_against_category']);
